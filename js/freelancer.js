@@ -6,7 +6,7 @@
 
 // jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {
-    $('.page-scroll a').bind('click', function(event) {
+    $('.page-scroll a').not("#locale").bind('click', function(event) {
         var $anchor = $(this);
         $('html, body').stop().animate({
             scrollTop: $($anchor.attr('href')).offset().top
@@ -32,6 +32,56 @@ $('body').scrollspy({
 })
 
 // Closes the Responsive Menu on Menu Item Click
-$('.navbar-collapse ul li a').click(function() {
+$('.navbar-collapse ul li a').not("a#locale").click(function() {
+    alert("click");
     $('.navbar-toggle:visible').click();
 });
+
+$(function() {
+    if(window.location.hash)
+    {
+        if(window.location.hash === "#english")
+        {
+            showEnglish();
+        }
+        else
+        {
+            showIcelandic();
+        }
+    }
+    else
+    {
+        showIcelandic();
+    }
+
+    $("#locale").click(function(event) {
+        event.preventDefault();
+
+        if($(this).attr("href") === "#english")
+        {
+            showEnglish();
+        }
+        else
+        {
+            showIcelandic();
+        }
+    });
+});
+
+function showEnglish()
+{
+    window.location.hash = "#english";
+    $("#locale").attr("href", "#icelandic").addClass("english").removeClass("icelandic");
+    $("#locale").text("Icelandic");
+    $(".locale-en").removeClass("hidden");
+    $(".locale-is").addClass("hidden");
+}
+
+function showIcelandic()
+{
+    window.location.hash = "#icelandic";
+    $("#locale").attr("href", "#english").addClass("icelandic").removeClass("english");
+    $("#locale").text("English");
+    $(".locale-is").removeClass("hidden");
+    $(".locale-en").addClass("hidden");
+}

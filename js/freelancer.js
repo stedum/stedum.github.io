@@ -33,7 +33,6 @@ $('body').scrollspy({
 
 // Closes the Responsive Menu on Menu Item Click
 $('.navbar-collapse ul li a').not("a#locale").click(function() {
-    alert("click");
     $('.navbar-toggle:visible').click();
 });
 
